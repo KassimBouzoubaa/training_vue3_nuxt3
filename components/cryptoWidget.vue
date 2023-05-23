@@ -43,6 +43,7 @@
         v-for="(crypto, index) in filteredArray"
         class="menu-el-js flex items-center px-3 cursor-default py-2 duration-150 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50"
         @click="updateSelectedCoin(crypto.id)"
+        :key="index"
       >
         <img class="mr-4" :src="crypto.thumb" alt="logoCrypto" />
         <span class="mr-4">{{ crypto.name + " " }}</span>
@@ -80,8 +81,7 @@
   </div>
 </template>
 
-<script setup>
-import { ref, watchEffect } from "vue";
+<script lang="ts" setup>
 const inputValue = ref("");
 const coin = ref("");
 let coinSelected = ref("bitcoin");
@@ -92,19 +92,16 @@ const myBag = [
   { id: 3, name: "bitcoin", quantity: 2, buyPrice: 19000, actualPrice: 29000 },
   { id: 4, name: "kujira", quantity: 34, buyPrice: 0.1, actualPrice: 0.002 },
 ];
-let filteredArray = ref(null);
+let filteredArray: Ref<null | Coin[]> = ref(null);
 function changeCoin() {
   coin.value = inputValue.value;
   fetchData();
 }
 const API_URL = `https://api.coingecko.com/api/v3/search?query=`;
 
-watchEffect(() => {
-  fetchData();
-});
-const commits = ref(null);
+const commits: Ref<null | Commit> = ref(null);
 
-function updateSelectedCoin(coinId) {
+function updateSelectedCoin(coinId: string) {
   coinSelected.value = coinId;
   myCoins.value += "," + coinId;
 }
@@ -112,7 +109,27 @@ function updateSelectedCoin(coinId) {
 async function fetchData() {
   const url = `${API_URL}${coin.value}`;
   commits.value = await (await fetch(url)).json();
-  filteredArray.value = commits.value.coins;
+  if (commits.value) {
+    filteredArray.value = commits.value.coins;
+  }
+}
+
+interface Coin {
+  api_symbol: string;
+  id: string;
+  large: string;
+  market_cap_rank: string;
+  name: string;
+  symbol: string;
+  thumb: string;
+}
+
+interface Commit {
+  categories: [];
+  coins: [];
+  exchanges: [];
+  icos: [];
+  nfts: [];
 }
 
 useHead({
