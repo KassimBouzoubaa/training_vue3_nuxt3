@@ -7,11 +7,8 @@
       locale="fr"
     ></coingecko-coin-price-marquee-widget>
   </div>
-  <h1
-    class="mt-[15px] text-center font-bold md:text-[44px] text-[20px] text-black"
-  >
-    Rechercher une crypto
-  </h1>
+  <portfolio/>
+  <titreSection titre="Rechercher une crypto" />
   <form class="max-w-md px-4 mx-auto m-4" @submit.prevent="changeCoin">
     <div class="relative">
       <svg
@@ -39,24 +36,16 @@
     <div
       class="shadow max-h-32 mt-2 overflow-y-auto border-b border-r border-l"
     >
-      <li
+      <searchCrypto
         v-for="(crypto, index) in filteredArray"
-        class="menu-el-js flex items-center px-3 cursor-default py-2 duration-150 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50"
         @click="updateSelectedCoin(crypto.id)"
         :key="index"
-      >
-        <img class="mr-4" :src="crypto.thumb" alt="logoCrypto" />
-        <span class="mr-4">{{ crypto.name + " " }}</span>
-        ({{ crypto.id }})
-      </li>
+        :crypto="crypto"
+      />
     </div>
   </form>
   <div class="w-1/2 mx-auto">
-    <h2
-      class="my-[15px] text-center font-bold md:text-[44px] text-[20px] text-black"
-    >
-      Calculer le change
-    </h2>
+    <titreSection titre="Calculer le change" />
     <coingecko-coin-converter-widget
       :coin-id="coinSelected"
       currency="usd"
@@ -67,11 +56,7 @@
     ></coingecko-coin-converter-widget>
   </div>
   <div class="w-1/2 mx-auto">
-    <h2
-      class="my-[15px] text-center font-bold md:text-[44px] text-[20px] text-black"
-    >
-      Où acheter ma crypto
-    </h2>
+    <titreSection titre="Où acheter ma crypto" />
     <coingecko-coin-market-ticker-list-widget
       :coin-id="coinSelected"
       currency="usd"
@@ -82,37 +67,11 @@
 </template>
 
 <script lang="ts" setup>
+
 const inputValue = ref("");
 const coin = ref("");
 let coinSelected = ref("bitcoin");
 let myCoins = ref("treeb,bitcoin,cosmos,kujira");
-const myBag = [
-  { id: 1, name: "cosmos", quantity: 10, buyPrice: 5, actualPrice: 12 },
-  { id: 2, name: "treeb", quantity: 1030, buyPrice: 0.5, actualPrice: 0.02 },
-  { id: 3, name: "bitcoin", quantity: 2, buyPrice: 19000, actualPrice: 29000 },
-  { id: 4, name: "kujira", quantity: 34, buyPrice: 0.1, actualPrice: 0.002 },
-];
-let filteredArray: Ref<null | Coin[]> = ref(null);
-function changeCoin() {
-  coin.value = inputValue.value;
-  fetchData();
-}
-const API_URL = `https://api.coingecko.com/api/v3/search?query=`;
-
-const commits: Ref<null | Commit> = ref(null);
-
-function updateSelectedCoin(coinId: string) {
-  coinSelected.value = coinId;
-  myCoins.value += "," + coinId;
-}
-
-async function fetchData() {
-  const url = `${API_URL}${coin.value}`;
-  commits.value = await (await fetch(url)).json();
-  if (commits.value) {
-    filteredArray.value = commits.value.coins;
-  }
-}
 
 interface Coin {
   api_symbol: string;
@@ -124,12 +83,36 @@ interface Coin {
   thumb: string;
 }
 
+let filteredArray: Ref<null | Coin[]> = ref(null);
+
 interface Commit {
   categories: [];
   coins: [];
   exchanges: [];
   icos: [];
   nfts: [];
+}
+
+const commits: Ref<null | Commit> = ref(null);
+
+function changeCoin() {
+  coin.value = inputValue.value;
+  fetchData();
+}
+
+function updateSelectedCoin(coinId: string) {
+    coinSelected.value = coinId;
+    myCoins.value += "," + coinId;
+}
+
+const API_URL = `https://api.coingecko.com/api/v3/search?query=`;
+
+async function fetchData() {
+  const url = `${API_URL}${coin.value}`;
+  commits.value = await (await fetch(url)).json();
+  if (commits.value) {
+    filteredArray.value = commits.value.coins;
+  }
 }
 
 useHead({

@@ -1,6 +1,6 @@
 <template>
     <div>
-<nav class="bg-black dark:bg-black fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+<nav class="bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
   <div class=" max-w-screen-xl flex flex-wrap items-center justify-center mx-auto p-4">
   
   <div class="flex md:order-2">
@@ -10,18 +10,18 @@
       </button>
   </div>
   <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-    <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-black dark:bg-black md:dark:bg-black dark:border-gray-700">
+    <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">
       <li>
-        <nuxt-link to="/" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white" aria-current="page">Acceuil</nuxt-link>
+        <nuxt-link to="/" class="block py-2 pl-3 pr-4 text-white rounded md:text-white md:p-0 md:dark:text-white" aria-current="page">Acceuil</nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/todo" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white" aria-current="page">TodoList</nuxt-link>
+        <nuxt-link to="/todo" class="block py-2 pl-3 pr-4 text-white rounded md:text-white md:p-0 md:dark:text-white" aria-current="page">TodoList</nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/crypto" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white" aria-current="page">Crypto</nuxt-link>
+        <nuxt-link to="/crypto" class="block py-2 pl-3 pr-4 text-white rounded md:text-white md:p-0 md:dark:text-white" aria-current="page">Crypto</nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/todo" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 md:dark:text-white" aria-current="page">TodoList</nuxt-link>
+        <nuxt-link to="/todo" class="block py-2 pl-3 pr-4 text-white rounded md:text-white md:p-0 md:dark:text-white" aria-current="page">TodoList</nuxt-link>
       </li>
      
     </ul>
