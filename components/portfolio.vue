@@ -1,35 +1,39 @@
 <template>
-    <TitreSection titre="Portefolio"/>
-    
+  <TitreSection titre="Portefolio" />
+
   <div class=" ">
     <div
       class="flex text-center justify-between font-bold mx-20 my-10 border-b"
     >
-      <span class="w-1/5">Coin</span> <span class="w-1/5">Price</span>
-      <span class="w-1/5">Mkt Cap</span> <span class="w-1/5">Valeur</span>
-      <span class="w-1/5">Pnl</span>
+      <span class="w-1/7">Cryptomonnaie</span>
+      <span class="w-1/7">Prix d'achat</span>
+      <span class="w-1/7">Quantité</span>
+      <span class="w-1/7">Mkt Cap</span> <span class="w-1/7">Prix actuelle</span
+      ><span class="w-1/7">Valeur actuelle</span>
+      <span class="w-1/7">Pnl</span>
     </div>
     <div>
       <ul>
         <li
           v-for="(element, index) in myBag"
-         :key="index"
+          :key="index"
           class="flex text-center justify-between font-bold mx-20 my-10 border-b"
         >
-          <span class="w-1/5">{{ element.name }}</span>
-          <span class="w-1/5">{{ element.price }}</span>
-          <span class="w-1/5">{{ element.mktCap }}</span>
-          <span class="w-1/5">Valeur</span> <span class="w-1/5">Pnl</span>
+        <span class="w-1/7">Cryptomonnaie</span>
+      <span class="w-1/7">Prix d'achat</span>
+      <span class="w-1/7">Quantité</span>
+      <span class="w-1/7">Mkt Cap</span> <span class="w-1/7">Prix actuelle</span
+      ><span class="w-1/7">Valeur actuelle</span>
+      <span class="w-1/7">Pnl</span>
         </li>
       </ul>
     </div>
-
   </div>
-  <modal/>
+  <modal />
 </template>
 
 <script lang="ts" setup>
-  const myBag = [
+const myBag = [
   {
     id: 1,
     name: "cosmos",
@@ -63,5 +67,4 @@
     mktCap: "12B",
   },
 ];
-    
 </script>
